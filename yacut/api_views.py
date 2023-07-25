@@ -27,8 +27,8 @@ def create_new_short_link():
             MESSAGES['api_custom_id'].format(short=short_link), 400
         )
 
-    if (short_link and not re.search(API_SYMBOLS_SHORT, short_link)
-            or short_link and len(short_link) > MAX_LENGTH_SHORT_ID):
+    if (short_link and not re.search(API_SYMBOLS_SHORT, short_link) or
+            short_link and len(short_link) > MAX_LENGTH_SHORT_ID):
         raise InvalidAPIUsage(MESSAGES['invalid_short_id'], 400)
 
     url_map = creating_link_in_db(original_link, short_link)
