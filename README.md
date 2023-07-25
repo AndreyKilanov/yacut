@@ -1,8 +1,8 @@
-# Сервис сокращения ссылок <span style="color:firebrick;font-weight:700;font-size:40px">Ya</span><span style="color:whitesmoke;font-weight:700;font-size:40px">Cut</span>
+# Сервис сокращения ссылок  YaCut
 
 ---
 
-<span style="font-weight:700;font-size:18px">
+<span style="font-weight:700; font-size:18px">
 Сервис создает короткие ссылки из длинных и нечитабельных.
 </span>
 
@@ -114,6 +114,4 @@ SECRET_KEY=SECRET_KEY
 
 ---
 
-_Author: Andrey Kilanov_
- <img src="https://github.com/enricostara/telegram.link/blob/master/telegram.link.png" width="20"/>
-[telegram](https://t.me/AndyFebruary)
+**_Author: [Andrey Kilanov](https://github.com/AndyFebruary74/) [telegram](https://t.me/AndyFebruary)_**
