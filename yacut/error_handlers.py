@@ -3,6 +3,10 @@ from flask import render_template, jsonify
 from yacut import app, db
 
 
+class ErrorLink(Exception):
+    pass
+
+
 class InvalidAPIUsage(Exception):
     status_code = 400
 
@@ -19,10 +23,6 @@ class InvalidAPIUsage(Exception):
 @app.errorhandler(InvalidAPIUsage)
 def invalid_api_usage(error):
     return jsonify(error.to_dict()), error.status_code
-
-
-class ErrorLink(Exception):
-    pass
 
 
 @app.errorhandler(404)
