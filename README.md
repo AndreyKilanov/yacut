@@ -78,6 +78,19 @@ python3 -m pip install --upgrade pip
 ```
 pip install -r requirements.txt
 ```
+
+Создание БД:
+
+```
+flask shell
+```
+
+```
+>> from yacut import bd
+>> db.create_all()
+>> exit()
+```
+
 Запуск:
 
 ```
@@ -99,6 +112,8 @@ FLASK_ENV=development
 DATABASE_URI=sqlite:///db.sqlite3
 SECRET_KEY=SECRET_KEY
 ```
+
+### [Настройки проекта](https://github.com/AndyFebruary74/yacut/blob/master/settings.py)
 
 ---
 
