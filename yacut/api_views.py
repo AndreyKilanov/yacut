@@ -4,7 +4,6 @@ from yacut import app
 from yacut.error_handlers import InvalidAPIUsage
 from yacut.models import URLMap
 
-
 REQUEST_EMPTY = 'Отсутствует тело запроса'
 MISSING_REQUIRED_FIELD = '\"url\" является обязательным полем!'
 INVALID_ID = 'Указанный id не найден'

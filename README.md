@@ -16,6 +16,8 @@
 
 ######  _Request POST_
 
+`http://127.0.0.1:5000`
+
 ```json
 {
   "url": "https://github.com/AndyFebruary74/yacut/",
@@ -32,9 +34,11 @@
 ```
 ###### *Request GET*
 
+`http://127.0.0.1:5000/777777`
+
 ```json
 {
-  "url": "http://127.0.0.1:5000/777777"
+  "url": "https://github.com/AndyFebruary74/yacut/"
 }
 ```
 
@@ -86,7 +90,7 @@ flask shell
 ```
 
 ```
->> from yacut import bd
+>> from yacut import db
 >> db.create_all()
 >> exit()
 ```

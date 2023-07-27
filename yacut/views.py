@@ -1,9 +1,8 @@
-from flask import render_template, redirect, abort, url_for
+from flask import render_template, redirect, abort
 
 from yacut import app
 from yacut.forms import URLForm
 from yacut.models import URLMap
-
 
 INDEX_HTML = 'index.html'
 

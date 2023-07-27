@@ -9,7 +9,6 @@ from wtforms.validators import (
 from settings import MAX_LENGTH_ORIGINAL, MAX_LENGTH_CUSTOM, API_SYMBOLS_SHORT
 from yacut.models import URLMap
 
-
 URL_FIELD = 'Введите ссылку'
 URL_ERROR = 'Некорректный URL'
 CUSTOM_ID = 'Введите кастомный ID'
