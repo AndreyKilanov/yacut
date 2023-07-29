@@ -1,4 +1,5 @@
 import os
+import re
 from string import ascii_letters, digits
 
 
@@ -9,13 +10,16 @@ class Config(object):
     SECRET_KEY = os.getenv('SECRET_KEY', default='SECRET_KEY')
 
 
+# name short link function
+NAME_FUNK_SHORT_ID = 'get_url_map'
+
 # for generate short url
 APPROVED_SYMBOLS = ascii_letters + digits
 LENGTH_SHORT_ID = 6
 
 # for api symbols short
-API_SYMBOLS_SHORT = f'^[{APPROVED_SYMBOLS}]+$'
+REGEX_SYMBOLS_SHORT = rf'^[{re.escape(APPROVED_SYMBOLS)}]*$'
 
 # maximum link length
-MAX_LENGTH_ORIGINAL = 512
-MAX_LENGTH_CUSTOM = 16
+MAX_LENGTH_ORIGINAL_LINK = 2000
+MAX_LENGTH_SHORT_ID = 16

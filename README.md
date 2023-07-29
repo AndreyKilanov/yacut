@@ -83,16 +83,11 @@ python3 -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-Создание БД:
+Создание миграций:
 
 ```
-flask shell
-```
+flask db init
 
-```
->> from yacut import db
->> db.create_all()
->> exit()
 ```
 
 Запуск:

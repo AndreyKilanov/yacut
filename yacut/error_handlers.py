@@ -3,24 +3,32 @@ from flask import render_template, jsonify
 from yacut import app, db
 
 
-class ErrorLink(Exception):
-    pass
-
-
-class InvalidAPIUsage(Exception):
+class InvalidURLMap(Exception):
     status_code = 400
 
-    def __init__(self, message, status_code=None):
+    def __init__(self, message: str, status_code: int | None = None):
         super().__init__()
         self.message = message
         if status_code is not None:
             self.status_code = status_code
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return dict(message=self.message)
 
 
-@app.errorhandler(InvalidAPIUsage)
+class EmploymentShortId(InvalidURLMap):
+    pass
+
+
+class InvalidRegex(InvalidURLMap):
+    pass
+
+
+class InvalidLength(InvalidURLMap):
+    pass
+
+
+@app.errorhandler(InvalidURLMap)
 def invalid_api_usage(error):
     return jsonify(error.to_dict()), error.status_code
 
