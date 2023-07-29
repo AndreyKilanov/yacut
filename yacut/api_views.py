@@ -6,7 +6,6 @@ from yacut.models import URLMap
 
 REQUEST_EMPTY = 'Отсутствует тело запроса'
 MISSING_REQUIRED_FIELD_URL = '\"url\" является обязательным полем!'
-MISSING_REQUIRED_FIELD_SHORT_ID = '\"custom_id\" является обязательным полем!'
 INVALID_SHORT_ID = 'Указанный id не найден'
 
 
@@ -17,8 +16,6 @@ def create_new_short_link():
         raise InvalidURLMap(REQUEST_EMPTY)
     if 'url' not in data:
         raise InvalidURLMap(MISSING_REQUIRED_FIELD_URL)
-    if 'custom_id' not in data and None:
-        raise InvalidURLMap(MISSING_REQUIRED_FIELD_SHORT_ID)
     url_map = URLMap.create_link(data.get('url'), data.get('custom_id'))
     return jsonify(url_map.to_dict()), 201
 
