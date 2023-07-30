@@ -1,7 +1,6 @@
-from flask import render_template, redirect, abort
+from flask import render_template, redirect, abort, flash
 
 from yacut import app
-from yacut.error_handlers import InvalidCreateObject
 from yacut.forms import URLForm
 from yacut.models import URLMap
 
@@ -18,8 +17,8 @@ def index_view():
     try:
         url_map = URLMap.create_link(form.original_link.data, short_id)
         short_id = URLMap.full_short_id(url_map.short)
-    except InvalidCreateObject:
-        raise InvalidCreateObject(INVALID_CREATE_OBJECT)
+    except flash(INVALID_CREATE_OBJECT):
+        return render_template(INDEX_HTML, form=form)
     return render_template(INDEX_HTML, form=form, short_link=short_id)
 
 

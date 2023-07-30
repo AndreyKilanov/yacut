@@ -2,9 +2,12 @@ from flask import request, jsonify
 
 from yacut import app
 from yacut.error_handlers import (
-    InvalidAPIUsage, InvalidLength, InvalidRegex, EmploymentShortId
+    InvalidAPIUsage, InvalidLength, InvalidRegex, EmploymentShortId,
+    ErrorGenerations
 )
-from yacut.models import URLMap, INVALID_SHORT_ID, EMPLOYMENT_SHORT_ID
+from yacut.models import (
+    URLMap, INVALID_SHORT_ID, EMPLOYMENT_SHORT_ID, ERROR_GENERATIONS
+)
 
 REQUEST_EMPTY = 'Отсутствует тело запроса'
 MISSING_REQUIRED_FIELD_URL = '"url" является обязательным полем!'
@@ -28,6 +31,8 @@ def create_new_short_link():
         raise InvalidAPIUsage(
             EMPLOYMENT_SHORT_ID.format(short=data.get('custom_id'))
         )
+    except ErrorGenerations:
+        raise InvalidAPIUsage(ERROR_GENERATIONS)
     return jsonify(url_map.to_dict()), 201
 
 

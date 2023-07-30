@@ -28,10 +28,6 @@ class InvalidLength(Exception):
     pass
 
 
-class InvalidCreateObject(Exception):
-    pass
-
-
 class ErrorGenerations(Exception):
     pass
 

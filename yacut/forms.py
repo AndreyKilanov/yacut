@@ -10,7 +10,9 @@ from yacut.models import URLMap, LENGTH_ORIGINAL
 URL_FIELD = 'Введите ссылку'
 URL_ERROR = 'Некорректная ссылка'
 SHORT_ID = 'Введите короткую ссылку'
-LENGTH_SHORT_ID = f'Превышена длина ссылки в {MAX_LENGTH_SHORT_ID} символов'
+LENGTH_SHORT_ID = (
+    f'Короткая ссылка не может быть больше {MAX_LENGTH_SHORT_ID} символов'
+)
 REQUIRED = 'Обязательное поле'
 CREATE = 'Создать'
 NAME_EMPLOYMENT = 'Имя {short} уже занято!'
