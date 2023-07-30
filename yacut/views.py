@@ -5,7 +5,6 @@ from yacut.forms import URLForm
 from yacut.models import URLMap
 
 INDEX_HTML = 'index.html'
-INVALID_CREATE_OBJECT = 'Произошла ошибка при записи в базу данных'
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -17,8 +16,8 @@ def index_view():
     try:
         url_map = URLMap.create_link(form.original_link.data, short_id)
         short_id = URLMap.full_short_id(url_map.short)
-    except:
-        flash(INVALID_CREATE_OBJECT)
+    except Exception as error:
+        flash(str(error))
         return render_template(INDEX_HTML, form=form)
     return render_template(INDEX_HTML, form=form, short_link=short_id)
 
