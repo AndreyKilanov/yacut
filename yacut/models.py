@@ -71,5 +71,5 @@ class URLMap(db.Model):
         return url_map
 
     @staticmethod
-    def full_short_id(short_id: str):
+    def full_short_id(short_id: str) -> str:
         return url_for(NAME_FUNK_SHORT_ID, short=short_id, _external=True)
