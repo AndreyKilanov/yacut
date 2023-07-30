@@ -5,14 +5,12 @@ from yacut.error_handlers import (
     InvalidAPIUsage, InternalError, InvalidLength, InvalidRegex,
     EmploymentShortId
 )
-from yacut.models import URLMap
+from yacut.models import URLMap, INVALID_SHORT_ID, EMPLOYMENT_SHORT_ID
 
 REQUEST_EMPTY = 'Отсутствует тело запроса'
 MISSING_REQUIRED_FIELD_URL = '"url" является обязательным полем!'
 ERROR_SHORT_ID = 'Указанный id не найден'
 INTERNAL_ERROR = 'Внутрення ошибка, повоторите попытку позже.'
-INVALID_SHORT_ID = 'Указано недопустимое имя для короткой ссылки'
-EMPLOYMENT_SHORT_ID = 'Имя "{short}" уже занято.'
 
 
 @app.route('/api/id/', methods=['POST'])
