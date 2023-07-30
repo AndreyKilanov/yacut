@@ -31,7 +31,7 @@ class URLMap(db.Model):
                     short_link=URLMap.full_short_id(self.short))
 
     @staticmethod
-    def get(short_id):
+    def get(short_id: str):
         return URLMap.query.filter_by(short=short_id).first()
 
     @staticmethod
@@ -71,5 +71,5 @@ class URLMap(db.Model):
         return url_map
 
     @staticmethod
-    def full_short_id(short_id):
+    def full_short_id(short_id: str):
         return url_for(NAME_FUNK_SHORT_ID, short=short_id, _external=True)
