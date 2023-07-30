@@ -16,6 +16,10 @@ class InvalidAPIUsage(Exception):
         return dict(message=self.message)
 
 
+class URLMapException(Exception):
+    pass
+
+
 class EmploymentShortId(Exception):
     pass
 
