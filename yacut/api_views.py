@@ -1,22 +1,39 @@
 from flask import request, jsonify
 
 from yacut import app
-from yacut.error_handlers import InvalidURLMap
+from yacut.error_handlers import (
+    InvalidAPIUsage, InternalError, InvalidLength, InvalidRegex,
+    EmploymentShortId
+)
 from yacut.models import URLMap
 
 REQUEST_EMPTY = 'Отсутствует тело запроса'
-MISSING_REQUIRED_FIELD_URL = '\"url\" является обязательным полем!'
-INVALID_SHORT_ID = 'Указанный id не найден'
+MISSING_REQUIRED_FIELD_URL = '"url" является обязательным полем!'
+ERROR_SHORT_ID = 'Указанный id не найден'
+INTERNAL_ERROR = 'Внутрення ошибка, повоторите попытку позже.'
+INVALID_SHORT_ID = 'Указано недопустимое имя для короткой ссылки'
+EMPLOYMENT_SHORT_ID = 'Имя "{short}" уже занято.'
 
 
 @app.route('/api/id/', methods=['POST'])
 def create_new_short_link():
     data = request.get_json()
-    if not data:
-        raise InvalidURLMap(REQUEST_EMPTY)
-    if 'url' not in data:
-        raise InvalidURLMap(MISSING_REQUIRED_FIELD_URL)
-    url_map = URLMap.create_link(data.get('url'), data.get('custom_id'))
+    try:
+        if not data:
+            raise InvalidAPIUsage(REQUEST_EMPTY)
+        if 'url' not in data:
+            raise InvalidAPIUsage(MISSING_REQUIRED_FIELD_URL)
+        url_map = URLMap.create_link(
+            data.get('url'), data.get('custom_id'), api_usage=True
+        )
+    except (InvalidLength, InvalidRegex):
+        raise InvalidAPIUsage(INVALID_SHORT_ID)
+    except EmploymentShortId:
+        raise InvalidAPIUsage(
+            EMPLOYMENT_SHORT_ID.format(short=data.get('custom_id'))
+        )
+    except InternalError:
+        raise InvalidAPIUsage(INTERNAL_ERROR, 500)
     return jsonify(url_map.to_dict()), 201
 
 
@@ -24,5 +41,5 @@ def create_new_short_link():
 def get_short_link(short_id):
     object_url_map = URLMap.get(short_id)
     if not object_url_map:
-        raise InvalidURLMap(INVALID_SHORT_ID, 404)
+        raise InvalidAPIUsage(ERROR_SHORT_ID, 404)
     return jsonify(url=object_url_map.original), 200

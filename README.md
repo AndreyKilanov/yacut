@@ -86,7 +86,7 @@ pip install -r requirements.txt
 Создание миграций:
 
 ```
-flask db init
+flask db upgrade
 
 ```
 
@@ -111,6 +111,8 @@ FLASK_ENV=development
 DATABASE_URI=sqlite:///db.sqlite3
 SECRET_KEY=SECRET_KEY
 ```
+
+---
 
 ### [Настройки проекта](https://github.com/AndyFebruary74/yacut/blob/master/settings.py)
 

@@ -17,9 +17,12 @@ NAME_FUNK_SHORT_ID = 'get_url_map'
 APPROVED_SYMBOLS = ascii_letters + digits
 LENGTH_SHORT_ID = 6
 
-# for api symbols short
-REGEX_SYMBOLS_SHORT = rf'^[{re.escape(APPROVED_SYMBOLS)}]*$'
+# for api symbols short id
+REGEX_SYMBOLS_SHORT_ID = rf'^[{re.escape(APPROVED_SYMBOLS)}]*$'
 
 # maximum link length
-MAX_LENGTH_ORIGINAL_LINK = 2000
+MAX_LENGTH_ORIGINAL = 2000
 MAX_LENGTH_SHORT_ID = 16
+
+# quantity generations for uniq short id
+QUANTITY_GENERATIONS = 10

@@ -1,6 +1,7 @@
 from flask import render_template, redirect, abort
 
 from yacut import app
+from yacut.error_handlers import InternalError
 from yacut.forms import URLForm
 from yacut.models import URLMap
 
@@ -12,8 +13,12 @@ def index_view():
     form = URLForm()
     if not form.validate_on_submit():
         return render_template(INDEX_HTML, form=form)
-    url_map = URLMap.create_link(form.original_link.data, form.custom_id.data)
-    short_id = URLMap.full_short_id(url_map.short)
+    short_id = form.custom_id.data
+    try:
+        url_map = URLMap.create_link(form.original_link.data, short_id)
+        short_id = URLMap.full_short_id(url_map.short)
+    except InternalError:
+        abort(500)
     return render_template(INDEX_HTML, form=form, short_link=short_id)
 
 
