@@ -5,12 +5,12 @@ from wtforms.validators import (URL, Length, DataRequired,
 
 from settings import (REGEX_SYMBOLS_SHORT_ID, MAX_LENGTH_SHORT_ID,
                       MAX_LENGTH_ORIGINAL)
-from yacut.models import URLMap
+from yacut.models import URLMap, LENGTH_ORIGINAL
 
 URL_FIELD = 'Введите ссылку'
 URL_ERROR = 'Некорректная ссылка'
-URL_SHORT_ID = 'Введите короткую ссылку'
-URL_LENGTH = 'Превышена максимальная длина ссылки'
+SHORT_ID = 'Введите короткую ссылку'
+LENGTH_SHORT_ID = f'Превышена длина ссылки в {MAX_LENGTH_SHORT_ID} символов'
 REQUIRED = 'Обязательное поле'
 CREATE = 'Создать'
 NAME_EMPLOYMENT = 'Имя {short} уже занято!'
@@ -23,13 +23,13 @@ class URLForm(FlaskForm):
         validators=[
             DataRequired(REQUIRED),
             URL(require_tld=True, message=URL_ERROR),
-            Length(max=MAX_LENGTH_ORIGINAL, message=URL_LENGTH)
+            Length(max=MAX_LENGTH_ORIGINAL, message=LENGTH_ORIGINAL)
         ]
     )
     custom_id = StringField(
-        URL_SHORT_ID,
+        SHORT_ID,
         validators=[
-            Length(max=MAX_LENGTH_SHORT_ID, message=URL_LENGTH),
+            Length(max=MAX_LENGTH_SHORT_ID, message=LENGTH_SHORT_ID),
             regexp(REGEX_SYMBOLS_SHORT_ID, message=INVALID_SHORT_ID),
             Optional()
         ]

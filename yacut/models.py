@@ -14,7 +14,7 @@ from yacut.error_handlers import (
     EmploymentShortId, InvalidRegex, InvalidLength, ErrorGenerations
 )
 
-INVALID_ORIGINAL = f'Превышена длина ссылки в {MAX_LENGTH_ORIGINAL} символов'
+LENGTH_ORIGINAL = f'Превышена длина ссылки в {MAX_LENGTH_ORIGINAL} символов'
 INVALID_SHORT_ID = 'Указано недопустимое имя для короткой ссылки'
 EMPLOYMENT_SHORT_ID = 'Имя "{short}" уже занято.'
 ERROR_GENERATIONS = 'Не удалось сгенерировать уникальную ссылку.'
@@ -37,16 +37,19 @@ class URLMap(db.Model):
     @staticmethod
     def _get_uniq_short_id() -> str:
         for _ in range(QUANTITY_GENERATIONS):
-            uniq_short_id = ''.join(random.choices(APPROVED_SYMBOLS,
-                                                   k=LENGTH_SHORT_ID))
-            if not URLMap.get(uniq_short_id):
-                return uniq_short_id
+            short_id = ''.join(random.choices(APPROVED_SYMBOLS,
+                                              k=LENGTH_SHORT_ID))
+            if not URLMap.get(short_id):
+                return short_id
         raise ErrorGenerations(ERROR_GENERATIONS)
 
     @staticmethod
-    def _validate_fields(original_link: str, short_id: str):
+    def _validate_original_link(original_link: str):
         if len(original_link) > MAX_LENGTH_ORIGINAL:
-            raise InvalidLength(INVALID_ORIGINAL)
+            raise InvalidLength(LENGTH_ORIGINAL)
+
+    @staticmethod
+    def _validate_short_id(short_id: str):
         if len(short_id) > MAX_LENGTH_SHORT_ID:
             raise InvalidLength(INVALID_SHORT_ID)
         if not re.search(REGEX_SYMBOLS_SHORT_ID, short_id):
@@ -55,9 +58,11 @@ class URLMap(db.Model):
             raise EmploymentShortId(EMPLOYMENT_SHORT_ID.format(short=short_id))
 
     @staticmethod
-    def create_link(original_link: str, short_id: str, api_usage=False):
-        if short_id and api_usage:
-            URLMap._validate_fields(original_link, short_id)
+    def create_link(original_link: str, short_id: str, validate=False):
+        if validate:
+            URLMap._validate_original_link(original_link)
+            if short_id:
+                URLMap._validate_short_id(short_id)
         if not short_id:
             short_id = URLMap._get_uniq_short_id()
         url_map = URLMap(original=original_link, short=short_id)

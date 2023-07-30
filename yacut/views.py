@@ -1,11 +1,12 @@
 from flask import render_template, redirect, abort
 
 from yacut import app
-from yacut.error_handlers import InternalError
+from yacut.error_handlers import InvalidCreateObject
 from yacut.forms import URLForm
 from yacut.models import URLMap
 
 INDEX_HTML = 'index.html'
+INVALID_CREATE_OBJECT = 'Произошла ошибка при записи в базу данных'
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -17,8 +18,8 @@ def index_view():
     try:
         url_map = URLMap.create_link(form.original_link.data, short_id)
         short_id = URLMap.full_short_id(url_map.short)
-    except InternalError:
-        abort(500)
+    except InvalidCreateObject:
+        raise InvalidCreateObject(INVALID_CREATE_OBJECT)
     return render_template(INDEX_HTML, form=form, short_link=short_id)
 
 

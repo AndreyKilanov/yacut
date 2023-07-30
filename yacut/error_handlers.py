@@ -28,7 +28,7 @@ class InvalidLength(Exception):
     pass
 
 
-class InternalError(Exception):
+class InvalidCreateObject(Exception):
     pass
 
 
