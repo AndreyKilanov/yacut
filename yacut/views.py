@@ -1,9 +1,9 @@
 from flask import render_template, redirect, abort, flash
 
 from yacut import app
-from yacut.error_handlers import URLMapException
+from yacut.error_handlers import URLMapException, ErrorGenerations
 from yacut.forms import URLForm
-from yacut.models import URLMap
+from yacut.models import URLMap, ERROR_GENERATIONS
 
 INDEX_HTML = 'index.html'
 
@@ -19,6 +19,9 @@ def index_view():
         short_id = URLMap.full_short_id(url_map.short)
     except URLMapException as error:
         flash(str(error))
+        return render_template(INDEX_HTML, form=form)
+    except ErrorGenerations:
+        flash(str(ERROR_GENERATIONS))
         return render_template(INDEX_HTML, form=form)
     return render_template(INDEX_HTML, form=form, short_link=short_id)
 

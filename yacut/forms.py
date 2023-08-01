@@ -33,7 +33,7 @@ class URLForm(FlaskForm):
         validators=[
             Length(max=MAX_LENGTH_SHORT_ID, message=LENGTH_SHORT_ID),
             regexp(REGEX_SYMBOLS_SHORT_ID, message=INVALID_SHORT_ID),
-            Optional()
+            Optional(strip_whitespace=False)
         ]
     )
     submit = SubmitField(CREATE)

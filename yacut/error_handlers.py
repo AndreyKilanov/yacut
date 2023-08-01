@@ -20,15 +20,15 @@ class URLMapException(Exception):
     pass
 
 
-class EmploymentShortId(Exception):
+class InvalidLength(URLMapException):
     pass
 
 
-class InvalidRegex(Exception):
+class InvalidRegex(URLMapException):
     pass
 
 
-class InvalidLength(Exception):
+class EmploymentShortId(URLMapException):
     pass
 
 
